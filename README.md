@@ -1,4 +1,4 @@
-**Booking Website**
+<h2 align="center">Booking Website API</h2>
 
 👋 Welcome to the backend repository for the booking website built with NestJS. This backend server provides the necessary APIs to support the booking functionalities of the website.
 
