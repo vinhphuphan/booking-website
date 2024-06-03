@@ -1,0 +1,903 @@
+{
+	"info": {
+		"_postman_id": "3d7524f0-f3a4-4882-b024-c9bb139f2980",
+		"name": "hotel-booking",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "33340047"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "Signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"testemail@example.com\",\r\n  \"password\": \"password123\",\r\n  \"name\": \"Test User\",\r\n  \"phone\": \"1234567890\",\r\n  \"birthday\": \"1990-01-01\",\r\n  \"gender\": true,\r\n  \"role\": \"user\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/auth/signup"
+					},
+					"response": []
+				},
+				{
+					"name": "Signin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"admin@example.com\",\r\n    \"password\" : \"adminpassword\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/auth/signin"
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh access token",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEwLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwiaWF0IjoxNzE3Mzc0MjExLCJleHAiOjE3MTczNzUxMTF9.1KW7teRSfoXdsmkWFUv9Yd_rKWzw0wQJDmKG0uxPqGQ"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEwLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwiaWF0IjoxNzE3Mzc0MjExLCJleHAiOjE3MTc5NzkwMTF9.mr3RfN97NXmnHMdrFBhIHzsxt2se6xuakHJGMc2CmvU\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/auth/refresh"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "Get all users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEwLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwiaWF0IjoxNzE3Mzc2Nzk0LCJleHAiOjE3MTczNzc2OTR9.QaHqVPFhgp29D9yvfP39BQoleScf1rjSA0IPhBptywM"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/users"
+					},
+					"response": []
+				},
+				{
+					"name": "Get user by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjcsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJpYXQiOjE3MTczMzUxMjMsImV4cCI6MTcxNzMzNjAyM30.Z76tHdgVBCC4iqkCk8d5fSECorJBCuiGSTn8pkOA7Bw"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/users/6"
+					},
+					"response": []
+				},
+				{
+					"name": "Create user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjcsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJpYXQiOjE3MTczMzQ5MTIsImV4cCI6MTcxNzMzNTgxMn0.WDJFBsetOp6WD8964GF3kgsX5LUafNFNRdokydVr-0A"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"test2@example.com\",\r\n    \"name\": \"Test User 2\",\r\n    \"password\": \"password123\",\r\n    \"phone\": \"1234567890\",\r\n    \"birthday\": \"1990-01-01\",\r\n    \"gender\": true,\r\n    \"role\": \"user\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/users"
+					},
+					"response": []
+				},
+				{
+					"name": "Update user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQsImVtYWlsIjoicGhhbnZpbmhwaHUxQGdtYWlsLmNvbSIsImlhdCI6MTcxNzMzNTI1NywiZXhwIjoxNzE3MzM2MTU3fQ.XyLCm9epEHQ8EynaDlIKpaLk_llY6H3PuhPbrQnae6k"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Updated Test User\",\r\n    \"phone\": \"0987654321\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/users/5"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjcsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJpYXQiOjE3MTczMzUzMDIsImV4cCI6MTcxNzMzNjIwMn0.VNOiuz4TA00dbnPrm_37QmYMzEAL_PDKWMFecHUaaTU"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{baseUrl}}/users/7"
+					},
+					"response": []
+				},
+				{
+					"name": "Panigation search",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEwLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwiaWF0IjoxNzE3Mzc5NDQ0LCJleHAiOjE3MTczODAzNDR9.Hd3sFICUkLn7-QaU02cCMYMt6ChDEsTGogt4XUE9ua0"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/pagination?page=1&limit=1&keyword=J",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"pagination"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "1"
+								},
+								{
+									"key": "keyword",
+									"value": "J"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search user by name",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEwLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwiaWF0IjoxNzE3MzgwNzEzLCJleHAiOjE3MTczODE2MTN9.ku9JyUVvWrK5LryyiZjmppp9w3YNH8ITwmimA5WQDoc"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/search-by-name?userName=John",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"search-by-name"
+							],
+							"query": [
+								{
+									"key": "userName",
+									"value": "John"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload avatar",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEwLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwiaWF0IjoxNzE3MzgzOTc5LCJleHAiOjE3MTczODQ4Nzl9.MNWrSL0nsAJACbyIT5T32c7BPvVG6id6phAAZB5n9mo"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/VinhPhu/Pictures/Screenshots/Screenshot 2024-05-18 224644.png"
+								}
+							]
+						},
+						"url": "{{baseUrl}}/users/upload-avatar"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "hotel listings",
+			"item": [
+				{
+					"name": "Get all listings",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEwLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwiaWF0IjoxNzE3Mzc2Nzk0LCJleHAiOjE3MTczNzc2OTR9.QaHqVPFhgp29D9yvfP39BQoleScf1rjSA0IPhBptywM"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/listings"
+					},
+					"response": []
+				},
+				{
+					"name": "Get listing by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjcsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJpYXQiOjE3MTczMzUxMjMsImV4cCI6MTcxNzMzNjAyM30.Z76tHdgVBCC4iqkCk8d5fSECorJBCuiGSTn8pkOA7Bw"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/listings/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Create listing",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEwLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwiaWF0IjoxNzE3MzkyMDA5LCJleHAiOjE3MTczOTI5MDl9.xgmTMk3aJ_3b6wza-U7-aaejB1OLi8iVB8BF7s7FPfA"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"roomName\": \"Luxury Suite\",\r\n  \"guests\": 4,\r\n  \"bedrooms\": 2,\r\n  \"beds\": 2,\r\n  \"bathrooms\": 2,\r\n  \"description\": \"A luxurious suite with all amenities.\",\r\n  \"price\": 250,\r\n  \"washingMachine\": true,\r\n  \"ironingBoard\": true,\r\n  \"tv\": true,\r\n  \"airConditioner\": true,\r\n  \"wifi\": true,\r\n  \"kitchen\": true,\r\n  \"parking\": true,\r\n  \"pool\": true,\r\n  \"iron\": true,\r\n  \"locationId\": 1\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/listings"
+					},
+					"response": []
+				},
+				{
+					"name": "Update listing",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEwLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwiaWF0IjoxNzE3MzkyNzE2LCJleHAiOjE3MTczOTM2MTZ9.a5rJLoK3DWR1N7b1sW3z9KIUd9HVYLodwsq0Ien9Gf8"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"guest\" : 1\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/listings/4"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete listing",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEwLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwiaWF0IjoxNzE3MzkyNzE2LCJleHAiOjE3MTczOTM2MTZ9.a5rJLoK3DWR1N7b1sW3z9KIUd9HVYLodwsq0Ien9Gf8"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{baseUrl}}/listings/4"
+					},
+					"response": []
+				},
+				{
+					"name": "Panigation search",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEwLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwiaWF0IjoxNzE3Mzc5NDQ0LCJleHAiOjE3MTczODAzNDR9.Hd3sFICUkLn7-QaU02cCMYMt6ChDEsTGogt4XUE9ua0"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/listings/pagination?page=1&limit=2&keyword=",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"listings",
+								"pagination"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "2"
+								},
+								{
+									"key": "keyword",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search listings by location",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEwLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwiaWF0IjoxNzE3MzgwNzEzLCJleHAiOjE3MTczODE2MTN9.ku9JyUVvWrK5LryyiZjmppp9w3YNH8ITwmimA5WQDoc"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/listings/by-location/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Upload hotel image",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEwLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwiaWF0IjoxNzE3MzkyNzE2LCJleHAiOjE3MTczOTM2MTZ9.a5rJLoK3DWR1N7b1sW3z9KIUd9HVYLodwsq0Ien9Gf8"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/D:/Study/Learing_Online/Javascript/Nextjs/booking-website/hotel_images/edvin-johansson-rlwE8f8anOc-unsplash.jpg"
+								}
+							]
+						},
+						"url": "{{baseUrl}}/listings/1/upload-image"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "locations",
+			"item": [
+				{
+					"name": "Get all locations",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEwLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwiaWF0IjoxNzE3Mzc2Nzk0LCJleHAiOjE3MTczNzc2OTR9.QaHqVPFhgp29D9yvfP39BQoleScf1rjSA0IPhBptywM"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/locations"
+					},
+					"response": []
+				},
+				{
+					"name": "Get location by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEwLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwiaWF0IjoxNzE3Mzk0NDQ5LCJleHAiOjE3MTczOTUzNDl9.ztDk4oP_3uKnrXLX0TEKZxyTukEX50vpX2Gg3PywtXQ"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/listings/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Create location",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEwLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwiaWF0IjoxNzE3Mzk0NDQ5LCJleHAiOjE3MTczOTUzNDl9.ztDk4oP_3uKnrXLX0TEKZxyTukEX50vpX2Gg3PywtXQ"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"locationName\": \"Example Location\",\r\n    \"city\": \"Example City\",\r\n    \"country\": \"Example Country\",\r\n    \"image\": \"https://example.com/image.jpg\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/locations"
+					},
+					"response": []
+				},
+				{
+					"name": "Update location",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEwLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwiaWF0IjoxNzE3Mzk0NDQ5LCJleHAiOjE3MTczOTUzNDl9.ztDk4oP_3uKnrXLX0TEKZxyTukEX50vpX2Gg3PywtXQ"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"locationName\" : \"Paris\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/locations/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete location",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEwLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwiaWF0IjoxNzE3Mzk0NDQ5LCJleHAiOjE3MTczOTUzNDl9.ztDk4oP_3uKnrXLX0TEKZxyTukEX50vpX2Gg3PywtXQ"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{baseUrl}}/locations/4"
+					},
+					"response": []
+				},
+				{
+					"name": "Panigation search",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEwLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwiaWF0IjoxNzE3Mzk1NTQ0LCJleHAiOjE3MTczOTY0NDR9.8ZKV_6FP5mDALGg6CbkFwj5J835gvS3Qk6ijF43gN38"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/locations/pagination?page=1&limit=1&keyword=USA",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"locations",
+								"pagination"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "1"
+								},
+								{
+									"key": "keyword",
+									"value": "USA"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload location image",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEwLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwiaWF0IjoxNzE3Mzk2MDMyLCJleHAiOjE3MTczOTY5MzJ9.f53z8w9cRlM04ZXO6j59QFeCFYe8K3HuNYzW3_OrR-4"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/D:/Study/Learing_Online/Javascript/Nextjs/booking-website/hotel_images/manuel-moreno-DGa0LQ0yDPc-unsplash.jpg"
+								}
+							]
+						},
+						"url": "{{baseUrl}}/locations/1/upload-image"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "comments",
+			"item": [
+				{
+					"name": "Get all comments",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQsImVtYWlsIjoicGhhbnZpbmhwaHUxQGdtYWlsLmNvbSIsImlhdCI6MTcxNzMzMDI2MCwiZXhwIjoxNzE3MzMwNTYwfQ.waKzQbxilNuZrljt2dRYN2nPrvEb2EHXHl6jKtjcbzw"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/comments"
+					},
+					"response": []
+				},
+				{
+					"name": "Post comment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQsImVtYWlsIjoicGhhbnZpbmhwaHUxQGdtYWlsLmNvbSIsImlhdCI6MTcxNzMzMDYwMCwiZXhwIjoxNzE3MzMxNTAwfQ.38VinzBDTBQe29ZCyGOJgwdH48cWU-1DtQCEpsqRiQ0"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"listingId\": 1,\r\n  \"content\": \"This is a new comment\",\r\n  \"rating\": 4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/comments"
+					},
+					"response": []
+				},
+				{
+					"name": "Update comment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQsImVtYWlsIjoicGhhbnZpbmhwaHUxQGdtYWlsLmNvbSIsImlhdCI6MTcxNzMzMDYwMCwiZXhwIjoxNzE3MzMxNTAwfQ.38VinzBDTBQe29ZCyGOJgwdH48cWU-1DtQCEpsqRiQ0"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\": \"Updated comment content\",\r\n    \"rating\": 4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/comments/4"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete comment",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{baseUrl}}/comments/4"
+					},
+					"response": []
+				},
+				{
+					"name": "Get comments by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQsImVtYWlsIjoicGhhbnZpbmhwaHUxQGdtYWlsLmNvbSIsImlhdCI6MTcxNzMzMjQwNCwiZXhwIjoxNzE3MzMzMzA0fQ.b2KMZqZRisKUN0loWi0IVdEJE_jVVSOfXl68do5liKo"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/comments/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Get comments by listing id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQsImVtYWlsIjoicGhhbnZpbmhwaHUxQGdtYWlsLmNvbSIsImlhdCI6MTcxNzMzMDYwMCwiZXhwIjoxNzE3MzMxNTAwfQ.38VinzBDTBQe29ZCyGOJgwdH48cWU-1DtQCEpsqRiQ0"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/comments/by-listing-id/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "reservations",
+			"item": [
+				{
+					"name": "Get all reservations",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQsImVtYWlsIjoicGhhbnZpbmhwaHUxQGdtYWlsLmNvbSIsImlhdCI6MTcxNzMzMjA0MSwiZXhwIjoxNzE3MzMyOTQxfQ.CeNDI-e-edRkrcTUzLUAQ5NhcyAa9kaGZonGSbxKG0Q"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/reservations"
+					},
+					"response": []
+				},
+				{
+					"name": "Create reservation",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQsImVtYWlsIjoicGhhbnZpbmhwaHUxQGdtYWlsLmNvbSIsImlhdCI6MTcxNzMzMjQwNCwiZXhwIjoxNzE3MzMzMzA0fQ.b2KMZqZRisKUN0loWi0IVdEJE_jVVSOfXl68do5liKo"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"listingId\": 3,\r\n    \"arrivalDate\": \"2024-06-15T00:00:00.000Z\",\r\n    \"departureDate\": \"2024-06-20T00:00:00.000Z\",\r\n    \"numberOfGuests\": 2\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/reservations"
+					},
+					"response": []
+				},
+				{
+					"name": "Update reservation",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQsImVtYWlsIjoicGhhbnZpbmhwaHUxQGdtYWlsLmNvbSIsImlhdCI6MTcxNzMzMjQwNCwiZXhwIjoxNzE3MzMzMzA0fQ.b2KMZqZRisKUN0loWi0IVdEJE_jVVSOfXl68do5liKo"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"arrivalDate\": \"2024-06-16T00:00:00.000Z\",\r\n    \"departureDate\": \"2024-06-21T00:00:00.000Z\",\r\n    \"numberOfGuests\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/reservations/4"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete reservation",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQsImVtYWlsIjoicGhhbnZpbmhwaHUxQGdtYWlsLmNvbSIsImlhdCI6MTcxNzMzMjQwNCwiZXhwIjoxNzE3MzMzMzA0fQ.b2KMZqZRisKUN0loWi0IVdEJE_jVVSOfXl68do5liKo"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{baseUrl}}/reservations/4"
+					},
+					"response": []
+				},
+				{
+					"name": "Get reservation by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQsImVtYWlsIjoicGhhbnZpbmhwaHUxQGdtYWlsLmNvbSIsImlhdCI6MTcxNzMzMjQwNCwiZXhwIjoxNzE3MzMzMzA0fQ.b2KMZqZRisKUN0loWi0IVdEJE_jVVSOfXl68do5liKo"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/reservations/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Get reservations by listing id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQsImVtYWlsIjoicGhhbnZpbmhwaHUxQGdtYWlsLmNvbSIsImlhdCI6MTcxNzMzMjQwNCwiZXhwIjoxNzE3MzMzMzA0fQ.b2KMZqZRisKUN0loWi0IVdEJE_jVVSOfXl68do5liKo"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/reservations/by-listing-id/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Get reservations by user id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQsImVtYWlsIjoicGhhbnZpbmhwaHUxQGdtYWlsLmNvbSIsImlhdCI6MTcxNzMzMjQwNCwiZXhwIjoxNzE3MzMzMzA0fQ.b2KMZqZRisKUN0loWi0IVdEJE_jVVSOfXl68do5liKo"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/reservations/by-user-id/1"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000",
+			"type": "string"
+		}
+	]
+}
