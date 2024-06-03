@@ -1,0 +1,91 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model comment {
+  id          Int       @id @default(autoincrement())
+  listingId   Int
+  userId      Int
+  commentDate DateTime? @db.Date
+  content     String?   @db.Text
+  rating      Int?
+  listing     listing   @relation(fields: [listingId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "comment_ibfk_1")
+  user        user      @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "comment_ibfk_2")
+
+  @@index([listingId], map: "listingId")
+  @@index([userId], map: "userId")
+}
+
+model listing {
+  id             Int           @id @default(autoincrement())
+  roomName       String        @db.VarChar(255)
+  guests         Int
+  bedrooms       Int
+  beds           Int
+  bathrooms      Int
+  description    String?       @db.Text
+  price          Int
+  washingMachine Boolean?
+  ironingBoard   Boolean?
+  tv             Boolean?
+  airConditioner Boolean?
+  wifi           Boolean?
+  kitchen        Boolean?
+  parking        Boolean?
+  pool           Boolean?
+  iron           Boolean?
+  locationId     Int?
+  image          String?       @db.VarChar(255)
+  userId         Int?
+  comment        comment[]
+  location       location?     @relation(fields: [locationId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "listing_ibfk_1")
+  user           user?          @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_ibfk_1")
+  reservation    reservation[]
+
+  @@index([locationId], map: "locationId")
+  @@index([userId], map: "userId")
+}
+
+model location {
+  id           Int       @id @default(autoincrement())
+  locationName String    @db.VarChar(255)
+  city         String    @db.VarChar(255)
+  country      String    @db.VarChar(255)
+  image        String?   @db.VarChar(255)
+  listing      listing[]
+}
+
+model reservation {
+  id             Int      @id @default(autoincrement())
+  listingId      Int
+  arrivalDate    DateTime @db.DateTime(0)
+  departureDate  DateTime @db.DateTime(0)
+  numberOfGuests Int
+  userId         Int
+  listing        listing  @relation(fields: [listingId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "reservation_ibfk_1")
+  user           user     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "reservation_ibfk_2")
+
+  @@index([listingId], map: "listingId")
+  @@index([userId], map: "userId")
+}
+
+model user {
+  id          Int           @id @default(autoincrement())
+  name        String        @db.VarChar(255)
+  email       String        @unique(map: "email") @db.VarChar(255)
+  password    String        @db.VarChar(255)
+  phone       String?       @db.VarChar(20)
+  birthday    DateTime?     @db.Date
+  gender      Boolean?
+  role        String?       @db.VarChar(50)
+  avatar          String?       @db.VarChar(255)
+  refreshToken String?       @db.VarChar(255)
+  comment     comment[]
+  reservation reservation[]
+  listing     listing[] 
+}
