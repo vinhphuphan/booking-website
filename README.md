@@ -34,7 +34,7 @@ The `database` folder contains schema design and SQL code to design and implemen
 2. Install dependencies:
 
 ```bash
-npm install
+yarn install
 ```
 
 3. Create a `.env` file in the root directory with the following variables:
@@ -49,5 +49,5 @@ JWT_SECRET=your_jwt_secret
 5. Start the server
 
 ```bash
-npm start
+yarn start
 ```
