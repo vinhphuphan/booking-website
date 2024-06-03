@@ -13,7 +13,16 @@ The `database` folder contains schema design and SQL code to design and implemen
 * `comment`: Contains information about available food items such as name, price, and description.
 * `reservation`: Allows users to book the hotels. Contains arrivalDate, departureDate , number of guest and user who books the hotel.
 * `location`: Stores information about different locations, including the location name, city, country, and associated hotel listings.
-  
+
+**⚙️ Features**
+
+* User Authentication
+* Hotel Listings
+* Reservation Management
+* Commenting and Rating
+* Location Information
+* Image Upload
+* Pagination and Filtering
 
 **💻 Technologies Used**
 
