@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { IconType } from "react-icons";
 import qs from "query-string";
 
@@ -18,6 +18,21 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
 }) => {
   const router = useRouter();
   const params = useSearchParams();
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth < 768);
+    };
+
+    // Add event listener for window resize
+    window.addEventListener("resize", handleResize);
+
+    // Clean up the event listener on component unmount
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const handleClick = useCallback(() => {
     let currentQuery = {};
@@ -49,20 +64,20 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
     <div
       onClick={handleClick}
       className={`
-        flex flex-col 
-        items-center justify-center gap-2 
-        py-2
+        flex flex-col w-auto
+        items-center justify-center gap-1 md:gap-2 
+        py-1 md:py-2
         hover:text-neutral-800
         transition cursor-pointer
         ${
           selected
             ? "border-b-neutral-800 border-b-2 text-neutral-800"
-            : "border-neutral-300 text-neutral-500"
+            : "border-neutral-300 text-neutral-700"
         }        
         `}
     >
-      <Icon size={24} />
-      <div className="font-semibold text-xs">{label}</div>
+      <Icon size={isSmallScreen ? 18 : 24} />
+      <div className="font-semibold text-xs text-nowrap">{label}</div>
     </div>
   );
 };

@@ -15,14 +15,16 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import toast from "react-hot-toast";
 import Input from "../input/Input";
+import MapBox from "../MapBox";
 
 enum STEPS {
   CATEGORY = 0,
   LOCATION = 1,
-  INFO = 2,
-  IMAGES = 3,
-  DESCRIPTION = 4,
-  PRICE = 5,
+  MAPBOX_LOCATION = 2,
+  INFO = 3,
+  IMAGES = 4,
+  DESCRIPTION = 5,
+  PRICE = 6,
 }
 
 const RentModal = () => {
@@ -50,6 +52,8 @@ const RentModal = () => {
       price: 1,
       title: "",
       description: "",
+      longitude: null,
+      latitude: null,
     },
   });
 
@@ -143,14 +147,40 @@ const RentModal = () => {
     bodyContent = (
       <div className="flex flex-col gap-6">
         <Heading
-          title="Where is your place located?"
+          title="Which country are you at?"
           subtitle="Help guests find you"
         />
         <CountrySelect
           value={location}
-          onChange={(value) => setCustomValue("location", value)}
+          onChange={(value) => {
+            setCustomValue("location", value); // Save the full location data
+            setCustomValue("longitude", value.latlng[1]); // Save longitude
+            setCustomValue("latitude", value.latlng[0]); // Save latitude
+          }}
         />
         <Map center={location?.latlng} />
+      </div>
+    );
+  }
+
+  if (step === STEPS.MAPBOX_LOCATION) {
+    const latitude = watch("latitude"); // Get latitude from form state
+    const longitude = watch("longitude"); // Get longitude from form state
+
+    bodyContent = (
+      <div className="flex flex-col gap-6">
+        <Heading
+          title="Where is your place located?"
+          subtitle="Help guests find you"
+        />
+        <MapBox
+          latitude={latitude} 
+          longitude={longitude}
+          onLocationChange={(longitude, latitude) => {
+            setCustomValue("longitude", longitude);
+            setCustomValue("latitude", latitude);
+          }}
+        />
       </div>
     );
   }
@@ -217,6 +247,7 @@ const RentModal = () => {
         <Input
           id="description"
           label="Description"
+          type="textarea"
           disabled={isLoading}
           register={register}
           errors={errors}

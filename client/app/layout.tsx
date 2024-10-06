@@ -7,11 +7,15 @@ import ToasterProvider from "./providers/ToasterProvider";
 import LoginModal from "./components/modal/LoginModal";
 import getCurrentUser from "./actions/getCurrentUser";
 import RentModal from "./components/modal/RentModal";
+import SearchModal from "./components/modal/SearchModal";
+import { ScrollProvider } from "./context/ScrollContext";
+import Footer from "./components/footer/Footer";
+import NavForSmallScreen from "./components/NavForSmallScreen";
 
 const font = Nunito({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Airbnb",
+  title: "Hotel Booking",
   description: "Booking app",
 };
 
@@ -21,17 +25,21 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const currentUser = await getCurrentUser();
+
   return (
     <html lang="en">
       <body className={font.className}>
-        <ToasterProvider />
-        <RentModal />
-        <LoginModal />
-        <RegisterModal />
-        <Navbar currentUser={currentUser} />
-        <div className="pb-20 pt-28">
-          {children}
-        </div>
+        <ScrollProvider>
+          <ToasterProvider />
+          <RentModal />
+          <LoginModal />
+          <RegisterModal />
+          <SearchModal />
+          <Navbar currentUser={currentUser} />
+          <div className="pb-20 pt-5">{children}</div>
+          <NavForSmallScreen currentUser={currentUser}/>
+          <Footer />
+        </ScrollProvider>
       </body>
     </html>
   );

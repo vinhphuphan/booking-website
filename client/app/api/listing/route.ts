@@ -7,7 +7,7 @@ export async function POST(request: Request) {
     const currentUser = await getCurrentUser();
 
     if (!currentUser) {
-      return NextResponse.error();
+      return NextResponse.json({ error: "User not authenticated" }, { status: 401 });
     }
 
     const body = await request.json();
@@ -21,7 +21,24 @@ export async function POST(request: Request) {
       guestCount,
       location,
       price,
+      longitude,
+      latitude
     } = body;
+
+    // Basic validation
+    if (!title || !description || !category || !price || !location) {
+      return NextResponse.json(
+        { error: "Missing required fields" },
+        { status: 400 }
+      );
+    }
+
+    if (!longitude || !latitude) {
+      return NextResponse.json(
+        { error: "Missing longitude or latitude" },
+        { status: 400 }
+      );
+    }
 
     const listing = await prisma.listing.create({
       data: {
@@ -29,18 +46,25 @@ export async function POST(request: Request) {
         description,
         imageSrc,
         category,
-        roomCount,
-        bathroomCount,
-        guestCount,
+        roomCount: parseInt(roomCount, 10),
+        bathroomCount: parseInt(bathroomCount, 10),
+        guestCount: parseInt(guestCount, 10),
         locationValue: location.value,
         price: parseInt(price, 10),
         userId: currentUser.id,
+        longitude,
+        latitude
       },
     });
 
     return NextResponse.json(listing);
   } catch (error) {
     console.error("Error in POST request:", error);
-    return NextResponse.error();
+
+    // More detailed error handling
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }

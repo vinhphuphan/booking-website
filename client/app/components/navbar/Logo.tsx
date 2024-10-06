@@ -11,8 +11,8 @@ const Logo = () => {
             alt="logo"
             height={100}
             width={100}
-            className="hidden md:block cursor-pointer"
-            src="/logo.png"
+            className="hidden md:block cursor-pointer md:w-12 md:h-12"
+            src="/new-logo.png"
         />
     );
 }

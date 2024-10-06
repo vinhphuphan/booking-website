@@ -10,6 +10,8 @@ import useLoginModal from "@/app/hooks/useLoginModal";
 import { SafeUser } from "@/app/types";
 import { signOut } from "next-auth/react";
 import useRentModal from "@/app/hooks/useRentModal";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 interface UserMenuProps {
   currentUser?: SafeUser | null;
@@ -22,6 +24,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
@@ -63,7 +66,13 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
     }
     // Open Rent Modal
     rentModal.onOpen();
-  }, [currentUser, loginModal, rentModal])
+  }, [currentUser, loginModal, rentModal]);
+
+  const onLogOut = useCallback(() => {
+    signOut();
+    toast.success("Logged out successfully");
+    router.push("/");
+  }, []);
 
   useEffect(() => {
     document.addEventListener("mousedown", handleOutsideClick);
@@ -76,11 +85,12 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
     <div className="relative">
       <div className="flex flex-row items-center">
         <div
-        onClick={onRent} 
-        className="hidden lg:block px-4 py-3 rounded-full hover:bg-neutral-100 transition text-sm font-semibold cursor-pointer">
-          Airbnb your home
+          onClick={onRent}
+          className="hidden xl:block px-4 py-3 rounded-full hover:bg-neutral-100 transition text-sm font-semibold cursor-pointer"
+        >
+          List Your Accommodation
         </div>
-        <div className="hidden lg:block p-4 mr-1 rounded-full hover:bg-neutral-100 transition text-sm font-semibold cursor-pointer">
+        <div className="hidden xl:block p-4 mr-1 rounded-full hover:bg-neutral-100 transition text-sm font-semibold cursor-pointer">
           <GrLanguage size={16} />
         </div>
         <div
@@ -95,22 +105,35 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
       {isOpen && (
         <div
           ref={menuRef}
-          className="absolute top-14 right-0 z-50 w-[30vw] md:w-[70%] bg-white shadow-xl border-[1px] rounded-xl overflow-hidden"
+          className="absolute top-14 right-0 z-50 w-[30vw] lg:w-[80%] bg-white shadow-xl border-[1px] rounded-xl overflow-hidden"
         >
           <div className="flex flex-col">
             {currentUser ? (
               <>
-                <MenuItem label="My trips" onClick={() => {}} />
-                <MenuItem label="My reservation" onClick={() => {}} />
-                <MenuItem label="My properties" onClick={() => {}} />
-                <MenuItem label="Airbnb my home" onClick={rentModal.onOpen} />
+                <MenuItem label="Trips" onClick={() => router.push("/trips")} />
+                <MenuItem
+                  label="Favorites"
+                  onClick={() => router.push("/favorites")}
+                />
                 <hr />
-                <MenuItem label="Log out" onClick={() => signOut()} />
+                <MenuItem label="List Your Accommodation" onClick={rentModal.onOpen} />
+                <MenuItem
+                  label="Manage properties"
+                  onClick={() => router.push("/properties")}
+                />
+                <hr />
+                <MenuItem label="Gift cards" onClick={() => {}} />
+                <MenuItem label="Help center" onClick={() => {}} />
+                <MenuItem label="Log out" onClick={() => onLogOut()} />
               </>
             ) : (
               <>
                 <MenuItem label="Sign up" onClick={openRegisterModal} />
                 <MenuItem label="Log in" onClick={openLoginModal} />
+                <hr />
+                <MenuItem label="Gift cards" onClick={() => {}} />
+                <MenuItem label="List Your Accommodation" onClick={() => {}} />
+                <MenuItem label="Help center" onClick={() => {}} />
               </>
             )}
           </div>

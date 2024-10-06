@@ -18,7 +18,6 @@ import Input from "../input/Input";
 import Button from "../Button";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import RegisterModal from "./RegisterModal";
 
 const LoginModal = () => {
     const router = useRouter();
@@ -54,7 +53,6 @@ const LoginModal = () => {
                 toast.error(callback.error);
             }
         })
-       
     }
 
     const toggle = useCallback(() => {
@@ -64,10 +62,13 @@ const LoginModal = () => {
 
     const signInWithGoogle = async () => {
         try {
-          await signIn("google");
-          toast.success("Successfully signed in with Google");
-          router.refresh();
-          loginModal.onClose();
+          const result = await signIn("google", { redirect: false });
+          if (result?.ok) {
+            router.refresh();
+            loginModal.onClose();
+          } else if (result?.error) {
+            toast.error("An error occurred during Google sign-in.");
+          }
         } catch (error) {
           toast.error("An error occurred during Google sign-in.");
           console.error(error);
@@ -76,10 +77,13 @@ const LoginModal = () => {
     
       const signInWithGithub = async () => {
         try {
-          await signIn("github");
-          toast.success("Successfully signed in with GitHub");
-          router.refresh();
-          loginModal.onClose();
+          const result = await signIn("github", { redirect: false });
+          if (result?.ok) {
+            router.refresh();
+            loginModal.onClose();
+          } else if (result?.error) {
+            toast.error("An error occurred during GitHub sign-in.");
+          }
         } catch (error) {
           toast.error("An error occurred during GitHub sign-in.");
           console.error(error);
